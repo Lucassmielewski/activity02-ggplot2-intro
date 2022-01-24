@@ -145,7 +145,7 @@ Which is easier to read?
 Which looks more professional?
 
 **Response**:
-
+The md file is much easier to read as it is more of output where the rmd file shows all of the code and comments in one document.
 
 Now, wouldn't it be nice if we could combine these two plots so that we get the benefits of both!?!
 That is, how can we overlay the jitterplot over the boxplot?
@@ -155,7 +155,20 @@ Try doing the following in the code chunk below with my *hint*:
 - *Add* another geometry layer for the jitterplot.
 
 ```{r box-jitter-combined}
-
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y=species, fill = species)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+```{r box-jitter-combined}
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species, color = species)) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species))
+```
+```{r box-jitter-combined}
+ggplot(data = penguins) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species)) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species, color = species))
+  
 ```
 
 Play around with doing the jitterplot laid over the boxplot and the boxplot laid over the jitterplot.
@@ -175,14 +188,16 @@ In the code chunk below, explore different methods to try to create this plot.
 A hint, all `geom_*` have a `mapping` argument.
 
 ```{r jitter-colored-only}
-
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species)) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species))
 ```
 
 In the above code chunk, continue to play around with having the aesthetics mapped in the different layers.
 For example, how does having all of them mapped in the `ggplot` call compared to having these instead mapped in the `geom_boxplot` layer?
 Comment on what you notice.
 
-**Response**:
+**Response**: The options can effect all layers in the in the ggplot global option or only effect a specific layer. 
 
 
 Knit, then stage everything listed in your **Git** pane, commit (with a meaningful commit message), and push  to your GitHub repo.
