@@ -219,21 +219,27 @@ Create graphs to explore the relationship between `bill_length_mm` and each of `
 Using these three graphs to discuss which of these three categorical variables seems to be contributing more to these two peaks and explain your reasoning.
 
 ```{r bill_length_by_species}
-
+ggplot(data = penguins, mapping = aes(x = species, y=bill_length_mm, color = species)) +
+  geom_boxplot() +
+  geom_jitter()
 ```
 
 
 ```{r bill_length_by_sex}
-
+ggplot(data = penguins, mapping = aes(x = sex, y=bill_length_mm, color = sex)) +
+  geom_boxplot() +
+  geom_jitter()
 ```
 
 
 ```{r bill_length_by_island}
-
+ggplot(data = penguins, mapping = aes(x = island, y=bill_length_mm, color = island)) +
+  geom_boxplot() +
+  geom_jitter()
 ```
 
 **Response**:
-
+Species seems to have the largest impact on bill length but sex also seems to have a significant difference. 
 
 
 Knit, then stage everything listed in your **Git** pane, commit (with a meaningful commit message), and push  to your GitHub repo.
@@ -247,35 +253,38 @@ Here we continue exploring scatterplots using `{ggplot2}`.
 In the code chunk below, create a scatterplot for the relationship between `flipper_length_mm` and `body_mass_g`.
 
 ```{r flipper_vs_mass}
-
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g))
 ```
 
 Describe any patterns that you notice.
 
-**Response**:
+**Response**: As flipper length increases body mass also tends to increase. 
 
 
 Recreate your scatterplot in the code chunk below; however,  *map* `species` to the `color` and `shape` aesthetics.
 
 ```{r flipper_vs_mass_with_species}
-
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g, color=species, shape=species))
 ```
 
 Describe any patterns that you notice.
 
-**Response**:
+**Response**:Gentoo species seems to be the largest penguins. 
 
 
 The previous plot looked great except even in this rather small dataset (n = 344), there might are a number of points overlapping.
 In the R code chunk below, *set* the values (instead of mapping a variable to an aesthetic) of `size` (using some value larger than zero) and `alpha` (using some value between 0 and 1) to make your previous plot more effective.
 
 ```{r flipper_vs_mass_with_size_alpha}
-
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g, color=species, shape=species), size=3, alpha=.5)
 ```
 
 Discuss the decisions you made to help your plot be easier to read.
 
-**Response**:
+**Response**: Changing the alpha to .5 makes the points easier to see as they become more see through.
 
 
 
