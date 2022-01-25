@@ -188,7 +188,8 @@ GitHub and compare/contrast your `activity02-ggplot2-intro.Rmd` and
 `activity02-ggplot2-intro.md` files. Which is easier to read? Which
 looks more professional?
 
-**Response**:
+**Response**: The md file is much easier to read as it is more of output
+where the rmd file shows all of the code and comments in one document.
 
 Now, wouldn’t it be nice if we could combine these two plots so that we
 get the benefits of both!?! That is, how can we overlay the jitterplot
@@ -197,6 +198,42 @@ my *hint*:
 
 -   Re-create the boxplot with color that you did above, then
 -   *Add* another geometry layer for the jitterplot.
+
+``` r
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y=species, fill = species)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/box-jitter-combined-1-1.png)<!-- -->
+
+``` r
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species, color = species)) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/box-jitter-combined-2-1.png)<!-- -->
+
+``` r
+ggplot(data = penguins) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species)) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species, color = species))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/box-jitter-combined-3-1.png)<!-- -->
 
 Play around with doing the jitterplot laid over the boxplot and the
 boxplot laid over the jitterplot. Which do you prefer? Why?
@@ -215,12 +252,25 @@ default white coloring. In the code chunk below, explore different
 methods to try to create this plot. A hint, all `geom_*` have a
 `mapping` argument.
 
+``` r
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y=species)) +
+  geom_jitter(mapping = aes(x = flipper_length_mm, y=species, color = species))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/jitter-colored-only-1.png)<!-- -->
+
 In the above code chunk, continue to play around with having the
 aesthetics mapped in the different layers. For example, how does having
 all of them mapped in the `ggplot` call compared to having these instead
 mapped in the `geom_boxplot` layer? Comment on what you notice.
 
-**Response**:
+**Response**: The options can effect all layers in the in the ggplot
+global option or only effect a specific layer.
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Go to GitHub
@@ -248,7 +298,44 @@ graphs). Using these three graphs to discuss which of these three
 categorical variables seems to be contributing more to these two peaks
 and explain your reasoning.
 
-**Response**:
+``` r
+ggplot(data = penguins, mapping = aes(x = species, y=bill_length_mm, color = species)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_species-1.png)<!-- -->
+
+``` r
+ggplot(data = penguins, mapping = aes(x = sex, y=bill_length_mm, color = sex)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_sex-1.png)<!-- -->
+
+``` r
+ggplot(data = penguins, mapping = aes(x = island, y=bill_length_mm, color = island)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_island-1.png)<!-- -->
+
+**Response**: Species seems to have the largest impact on bill length
+but sex also seems to have a significant difference.
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Go to GitHub
@@ -263,16 +350,35 @@ exploring scatterplots using `{ggplot2}`.
 In the code chunk below, create a scatterplot for the relationship
 between `flipper_length_mm` and `body_mass_g`.
 
+``` r
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g))
+```
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/flipper_vs_mass-1.png)<!-- -->
+
 Describe any patterns that you notice.
 
-**Response**:
+**Response**: As flipper length increases body mass also tends to
+increase.
 
 Recreate your scatterplot in the code chunk below; however, *map*
 `species` to the `color` and `shape` aesthetics.
 
+``` r
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g, color=species, shape=species))
+```
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/flipper_vs_mass_with_species-1.png)<!-- -->
+
 Describe any patterns that you notice.
 
-**Response**:
+**Response**:Gentoo species seems to be the largest penguins.
 
 The previous plot looked great except even in this rather small dataset
 (n = 344), there might are a number of points overlapping. In the R code
@@ -281,9 +387,19 @@ aesthetic) of `size` (using some value larger than zero) and `alpha`
 (using some value between 0 and 1) to make your previous plot more
 effective.
 
+``` r
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x=flipper_length_mm, y = body_mass_g, color=species, shape=species), size=3, alpha=.5)
+```
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/flipper_vs_mass_with_size_alpha-1.png)<!-- -->
+
 Discuss the decisions you made to help your plot be easier to read.
 
-**Response**:
+**Response**: Changing the alpha to .5 makes the points easier to see as
+they become more see through.
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Go to GitHub
